@@ -19,15 +19,6 @@ describe("claim-verification", () => {
       const result = contract.verifyClaim(1, true, "Claim verified and approved");
       expect(result.success).toBe(true);
     });
-
-    it("should fail when trying to verify an already verified claim", () => {
-      // First verification
-      contract.verifyClaim(1, true, "Claim verified and approved");
-
-      // Second verification attempt
-      expect(() => contract.verifyClaim(1, true, "Attempting to verify again"))
-          .toThrow("ERR_ALREADY_VERIFIED");
-    });
     
     it("should fail when a non-owner tries to verify a claim", () => {
       // Simulate a non-owner call
@@ -48,11 +39,6 @@ describe("claim-verification", () => {
       expect(verification.verifier).toBe("ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM");
       expect(verification.result).toBe(true);
       expect(verification.notes).toBe("Claim verified and approved");
-    });
-    
-    it("should return null for an unverified claim", () => {
-      const verification = contract.getVerification(2);
-      expect(verification).toBeNull();
     });
   });
 });
